@@ -18,9 +18,14 @@ Users can create investment clubs by defining a name, and the club will be assoc
 
 Anyone with an ICP (Internet Computer Protocol) blockchain account can join available investment clubs or leave them with just a couple of clicks.
 
+
+
 ## Contribute to the Club
 
 Any member of a club can contribute to the common fund (pool) by depositing ICP coins. These contributions can be used in proposals.
+
+![Screenshot from 2023-11-13 00-29-19](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/06d92ac4-c79c-4097-a165-6cfda34ad088)
+
 
 ## Create and Vote on Proposals
 
