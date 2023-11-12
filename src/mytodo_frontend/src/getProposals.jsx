@@ -15,24 +15,7 @@ async function GetProposals() {
 
 
     const info = await mytodo_backend.GetProposol(st);
-
-   
-
-
-    
-    
-    
-    
- 
-      // await mytodo_backend.SetStatus(st,"pending");
       var status = await mytodo_backend.GetStatus(st);
-
-      if(status == undefined)
-    {
-      var status = await mytodo_backend.GetStatus(st,"pending");
-
-    }
-
 
     var walletAddress = localStorage.getItem("filWalletAddress");
       if(id > 0) {
