@@ -1,7 +1,7 @@
 # Internet Computer Club (IC-CLUB)
 
+![Screenshot from 2023-11-12 23-50-21](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/6b94e8bb-872c-47f5-b41b-0bee8c86fa32)
 
-![Screenshot from 2023-11-13 01-12-08](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/dd06f841-bbc6-4c95-a15a-1d67dbbd8e36)
 
 <br>
 
@@ -71,6 +71,21 @@ A proposal owner, if the approval is greater than rejection, can execute a propo
 
 ![Screenshot from 2023-11-13 00-26-42](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/4ca59e4e-5725-45d3-80cd-506e93a35b24)
 
+## 🔍The problem it solves
+
+In the face of systemic challenges within the traditional private investment fund market, IC CLUB emerges as a transformative solution, addressing the longstanding barriers that have hindered the participation of aspiring investors in funding initiatives for innovative projects, including startups.
+
+<br>
+
+## 💥 Challenges we ran into
+
+**MOTOKO:**
+- Building scalable smart contracts is a challenging task that requires hard work and dedication. Despite the difficulties, I was able to make it happen. Our main challenge was to make the contract dynamic and responsive to all users. For instance, if a user adds a course, it should only be visible on their dashboard, not to everyone who logs in to the DApp.
+
+<br>
+
+<a href = "#top">Back to top</a>
+
 
 
 ### 	▶️ Experience the Live Site by Clicking the Link Below
@@ -125,30 +140,15 @@ dfx start --background --clean
 dfx deploy --network ic
 ```
 6. Access the dApp:
-Open your web browser and visit URL SHOWING IN UR TERMINAL to interact with the IC CLUB
+Open your web browser and visit the URL SHOWING IN UR TERMINAL to interact with the IC CLUB
 
 <br>
-
-## 🔍The problem it solves
-
-
-<br>
-
-## 💥 Challenges we ran into
-
-**MOTOKO:**
-- Building scalable smart contracts is a challenging task that requires hard work and dedication. Despite the difficulties, I was able to make it happen. Our main challenge was to make the contract dynamic and responsive to all users. For instance, if a user adds a course, it should only be visible on their dashboard, not to everyone who logs in to the DApp.
-
-<br>
-
-<a href = "#top">Back to top</a>
-
 
 # Project Gallery
 
-### Home Page
+### Login Page
 
-![Screenshot from 2023-11-12 23-50-21](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/6b94e8bb-872c-47f5-b41b-0bee8c86fa32)
+![Screenshot from 2023-11-13 01-12-08](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/dd06f841-bbc6-4c95-a15a-1d67dbbd8e36)
 
 
 ## 🛠️Technologies we used
