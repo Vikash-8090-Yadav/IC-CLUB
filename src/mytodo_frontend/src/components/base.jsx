@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "../../assets/js/sb-admin-2"
 
-// import { Link } from 'react-router';
 import GetMyClubs from "../getMyClubs";
 
-// const 
+import Tg from "./toggle";
+
+import { useAuth } from "./Auth";
 
 
-// import JoinClub from "./joinclub"
+
 
 function Base() {
 
+  const { logout } = useAuth();
   
   
   useEffect(() => {
     {
+      $('.view_balance_address').text(2+"TC");
+      var myWallet = localStorage.getItem("principal")
+        $('.current_account_text').text(myWallet);
       GetMyClubs(); // Call the imported function here
     }
   }, []);
@@ -31,31 +37,31 @@ function Base() {
       {/* Sidebar - Brand */}
       <a
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="index.html"
+        href="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-laugh-wink" />
         </div>
-        <div className="sidebar-brand-text mx-3">SpheronClub</div>
+        <div className="sidebar-brand-text mx-3">INTERNET Computer Club</div>
       </a>
       {/* Divider */}
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
       <li className="nav-item active">
-        <a className="nav-link" href="index.html">
+        <a className="nav-link" href="/">
           <i className="fas fa-fw fa-tachometer-alt" />
           <span>Dashboard</span>
         </a>
       </li>
       <li className="nav-item">
-        <Link  className="nav-link" to="joinclub">
+        <Link  className=" nav-link" to="/joinclub">
           <i className="fas fa-fw fa-file-image-o" />
           <span>Available clubs</span>
           </Link>
         
       </li>
       <li className="nav-item">
-      <Link  className="nav-link" to="createclub">
+      <Link  className="nav-link" to="/createclub">
           <i className="fas fa-fw fa-file-image-o" />
           <span>Create club</span>
         </Link>
@@ -64,7 +70,7 @@ function Base() {
       <hr className="sidebar-divider d-none d-md-block" />
       {/* Sidebar Toggler (Sidebar) */}
       <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" id="sidebarToggle" />
+        <button  onClick={Tg} className="rounded-circle border-0" id="sidebarToggle" />
       </div>
     </ul>
     {/* End of Sidebar */}
@@ -78,7 +84,9 @@ function Base() {
           <button
             id="sidebarToggleTop"
             className="btn btn-link d-md-none rounded-circle mr-3"
+            onClick={Tg}
           >
+            
             <i className="fa fa-bars" />
           </button>
           {/* Topbar Navbar */}
@@ -171,7 +179,7 @@ function Base() {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Balance (CELO)
+                        Balance (CYCLE)
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800 view_balance_address">
                         -
@@ -192,7 +200,7 @@ function Base() {
                       <div className="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                         Create club{" "}
                       </div>
-                      <a className="btn btn-primary" href="createclub.html">
+                      <a className="btn btn-primary" href="/createclub">
                         Create a new club
                       </a>
                     </div>
@@ -211,7 +219,7 @@ function Base() {
                       <div className="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                         Clubs{" "}
                       </div>
-                      <Link  className="nav-link" to="joinclub">
+                      <Link  className=" btn btn-secondary" to="joinclub">
                         See available clubs
                         </Link>
        
@@ -246,7 +254,7 @@ function Base() {
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
                   <h6 className="m-0 font-weight-bold text-primary">
-                    My Address
+                    My Principal Id
                   </h6>
                 </div>
                 <div className="card-body">
@@ -260,13 +268,13 @@ function Base() {
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
                   <h6 className="m-0 font-weight-bold text-primary">
-                    CSpheronClub
+                    IC Club
                   </h6>
                 </div>
                 <div className="card-body">
                   <p>
-                    SpheronClub is a light web wallet and Investment Club
-                    platform to manage funds (treasury) in Celo Blockchain.
+                    IC CLUB is a light web wallet and Investment Club
+                    platform to manage funds (treasury) in ICP Blockchain.
                   </p>
                 </div>
               </div>
@@ -363,7 +371,7 @@ function Base() {
           >
             Cancel
           </button>
-          <a className="btn btn-primary" id="btnLogout">
+          <a className="btn btn-primary" onClick={logout} id="btnLogout">
             Logout
           </a>
         </div>
@@ -375,23 +383,6 @@ function Base() {
 </div>
 
   )
-
-  // return (
-  //   <div>
-  //    <base/>
-  //   </div>
-  //   // <AuthContext.Provider  >
-  //     // <BrowserRouter>
-  //     //   <Routes>
-  //     //     <Route element={<Layout />}>
-  //     //       <Route index element={<Gallary />} />
-  //     //       <Route path="/galaxybits" element={<GalaxyBits />} />
-  //     //       <Route path="/todo" element={<Todo />} />
-  //     //     </Route>
-  //     //   </Routes>
-  //     // </BrowserRouter>
-  //   // </AuthContext.Provider>
-  // );
 };
 
 export default Base;

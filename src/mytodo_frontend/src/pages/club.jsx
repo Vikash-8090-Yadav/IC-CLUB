@@ -1,14 +1,147 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
+import {mytodo_backend} from "../../../declarations/mytodo_backend"
 
 import GetClub from "../getclub";
 
+import GetProposals from "../getProposals";
+
+import { useAuth } from "../components/Auth";
+import Tg from "../components/toggle";
+const id1 = mytodo_backend.ClubId();
+
+
+
+async function contributeClub() {
+  var walletAddress = localStorage.getItem("principal")
+
+  $('.successContributeClub').css('display','none');
+  $('.errorContributeClub').css('display','none');
+
+
+  var amountAE = $('#aeAmount').val();
+  amountAE = parseInt(amountAE);
+
+
+  var password = $('#passwordShowPVContribute').val();
+  if(amountAE == '' || amountAE <= 0) {
+    $('.successContributeClub').css('display','none');
+    $('.errorContributeClub').css("display","block");
+    $('.errorContributeClub').text("Amount must be more than 0.");
+    return;
+  }
+  if(password == '') {
+    $('.successContributeClub').css('display','none');
+    $('.errorContributeClub').css("display","block");
+    $('.errorContributeClub').text("Password is invalid");
+    return;
+  }
+
+  
+  if(id1 !== undefined)
+  {
+    if(id1 != null) {
+      $('.successContributeClub').css("display","block");
+      $('.successContributeClub').text("Contributing to the club...");
+      
+      if(walletAddress != undefined) {
+       
+
+     
+        try {
+          await mytodo_backend.SetBalance(amountAE);
+        } catch(e) {
+   
+          $('.successContributeClub').css('display','none');
+          $('.errorContributeClub').css("display","block");
+          $('.errorContributeClub').text(e.toString());
+          return;
+        }
+        
+        
+      }
+    }
+    $('.errorContributeClub').css('display','none');
+    $('.successContributeClub').css("display","block");
+    $('.successContributeClub').text("You have contributed to the club successfully");
+    location.reload();
+  } else {
+    $('.successContributeClub').css('display','none');
+    $('.errorContributeClub').css("display","block");
+    $('.errorContributeClub').text("Password is invalid");
+  }
+}
+
+
+
+
+
+async function verifyUserInClub() {
+  const Id = await mytodo_backend.ClubId();
+  // var clubId = localStorage.getItem("clubId");
+  // var filWalletAddress = localStorage.getItem("filWalletAddress");
+  if(Id != null) {
+    if(Id != undefined) {
+      // var user = await contractPublic.methods.isMemberOfClub(filWalletAddress,clubId).call();
+      if(1) {
+        $('.join_club').css('display','none');
+        $('.leave_club').css('display','block');
+      } else {
+        $('.join_club').css('display','block');
+        $('.leave_club').css('display','none');
+      }
+    }
+  }
+}
+
 function Club() {
+  const { logout } = useAuth();
+  const [password, setPassword] = useState('');
+
+
+  async function joinClub() {
+    
+    const Id = await mytodo_backend.ClubId();
+    $('.successJoinLeaveClub').css('display','none');
+    $('.errorJoinLeaveClub').css('display','none');
+    // var clubId = localStorage.getItem("clubId");
+    // var password = $('#passwordShowPVJoin').val();
+
+    if(password == '') {
+      $('.successJoinLeaveClub').css('display','none');
+      $('.errorJoinLeaveClub').css("display","block");
+      $('.errorJoinLeaveClub').text("Password is invalid");
+      return;
+    }
+    const my_wallet = '';
+    
+    if(password == '123')
+    {
+      if(Id != null) {
+        $('.successJoinLeaveClub').css("display","block");
+          $('.successJoinLeaveClub').text("Joining the club...");
+      
+        
+      }
+      await mytodo_backend.SetMemberCount();
+      
+      $('.errorJoinLeaveClub').css('display','none');
+      $('.successJoinLeaveClub').css("display","block");
+      $('.successJoinLeaveClub').text("You have joined the club successfully");
+      location.reload();
+    } else {
+
+      $('.successJoinLeaveClub').css('display','none');
+      $('.errorJoinLeaveClub').css("display","block");
+      $('.errorJoinLeaveClub').text("Password is invalid");
+    }
+  }
+  
+
 
     useEffect(() => {
         {
-            GetClub();
+            GetClub();verifyUserInClub();GetProposals();
         }
       }, []);
 
@@ -24,12 +157,12 @@ function Club() {
         {/* Sidebar - Brand */}
         <a
           className="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          href="/"
         >
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink" />
           </div>
-          <div className="sidebar-brand-text mx-3">SpheronClub</div>
+          <div className="sidebar-brand-text mx-3">INTERNET COMPUTER CLUB</div>
         </a>
         {/* Divider */}
         <hr className="sidebar-divider my-0" />
@@ -53,25 +186,26 @@ function Club() {
           <span>Create club</span>
         </Link>
       </li>
-        {/* Divider */}
-        <hr className="sidebar-divider d-none d-md-block" />
-        {/* Sidebar Toggler (Sidebar) */}
-        <div className="text-center d-none d-md-inline">
-          <button className="rounded-circle border-0" id="sidebarToggle" />
-        </div>
-      </ul>
-      {/* End of Sidebar */}
-      {/* Content Wrapper */}
-      <div id="content-wrapper" className="d-flex flex-column">
-        {/* Main Content */}
-        <div id="content">
-          {/* Topbar */}
-          <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-            {/* Sidebar Toggle (Topbar) */}
-            <button
-              id="sidebarToggleTop"
-              className="btn btn-link d-md-none rounded-circle mr-3"
-            >
+      {/* Divider */}
+      <hr className="sidebar-divider d-none d-md-block" />
+      {/* Sidebar Toggler (Sidebar) */}
+      <div className="text-center d-none d-md-inline">
+        <button  onClick={Tg} className="rounded-circle border-0" id="sidebarToggle" />
+      </div>
+    </ul>
+    {/* End of Sidebar */}
+    {/* Content Wrapper */}
+    <div id="content-wrapper" className="d-flex flex-column">
+      {/* Main Content */}
+      <div id="content">
+        {/* Topbar */}
+        <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          {/* Sidebar Toggle (Topbar) */}
+          <button
+            id="sidebarToggleTop"
+            className="btn btn-link d-md-none rounded-circle mr-3"
+            onClick={Tg}
+          >
               <i className="fa fa-bars" />
             </button>
             {/* Topbar Navbar */}
@@ -166,7 +300,7 @@ function Club() {
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2">
                         <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                          Club Balance (CELO)
+                          Club Balance (CYCLE)
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800 club_balance">
                           -
@@ -245,7 +379,7 @@ function Club() {
               {/* Pie Chart */}
               <div className="col-xl-4 col-lg-5">
                 <div
-                  className="card shadow mb-4 join_club"
+                  className="card shadow mb-4 join_club"  style={{display: "none"}}
                   
                 >
                   <div className="card-header py-3">
@@ -260,9 +394,13 @@ function Club() {
                         type="password"
                         id="passwordShowPVJoin"
                         className="form-control"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />{" "}
                       <br />
-                      <a href="#" id="btnJoinClub" className="btn btn-success">
+                      <a href="#" id="btnJoinClub" onClick={() => {
+                        joinClub();
+                      }} className="btn btn-success">
                         Confirm
                       </a>{" "}
                       <br />
@@ -306,6 +444,9 @@ function Club() {
                       <a
                         href="#"
                         id="btnContributeClub"
+                        onClick={() => {
+                          contributeClub();
+                        }}
                         className="btn btn-success"
                       >
                         Confirm
@@ -450,7 +591,7 @@ function Club() {
             >
               Cancel
             </button>
-            <a className="btn btn-primary" id="btnLogout">
+            <a className="btn btn-primary"  onClick={logout}  id="btnLogout">
               Logout
             </a>
           </div>

@@ -1,46 +1,89 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {mytodo_backend} from "../../../declarations/mytodo_backend"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// Import the required modules
-import { Actor, HttpAgent } from '@dfinity/agent';
-// import { idlFactory } from 'path/to/club.did.js';
+import Tg from '../components/toggle';
 
-// Connect to the ICP blockchain network
-const agent = new HttpAgent({ /* connection details */ });
-
-import { idlFactory } from '../../../declarations/mytodo_backend/mytodo_backend.did.js';
-import { canisterId, createActor } from "../../../declarations/mytodo_backend";
-const club = createActor(idlFactory, { agent, canisterId });
-
-
+import { useAuth } from "../components/Auth";
 
 function CreateClub() {
 
+  var balance = mytodo_backend.GetBalance();balance.then((result) => {
+    $('.view_balance_address').text(result);
+})
+.catch((error) => {
+console.error('Promise rejected:', error);
+});
+  const { logout } = useAuth();
+  const [clubName, setClubName] = useState('');
+  const [password, setPassword] = useState('');
 
 
-  const createClub = async () => {
 
-    const post = {
-      title: 'My Club',
-      password: 'my_password'
-    };
-
-    club.createClub(post)
-    .then(() => {
-      console.log('Club created successfully');
-    })
-    .catch((error) => {
-      console.error('Error creating club:', error);
-    });
   
+  const createClub = async () => {
     const id = await mytodo_backend.ClubId();
-    alert(id);
+    try {
+      if(clubName == '') {
+        toast.warn("Please Enter Club Name");
+        $('#errorCreateClub').css("display","block");
+        $('#errorCreateClub').text("Club name is invalid");
+        return;
+      }
+      if(password == '') {
+        toast.warn("Please Enter Password");
+        $('#errorCreateClub').css("display","block");
+        $('#errorCreateClub').text("Password is invalid");
+        return;
+      }
+      const post = {
+        title: clubName,
+        description: password,
+      };
+      
+      await mytodo_backend.createClub(post);
     
+  
+      
 
-    alert("Clicked")
+    } catch (error) {
+      console.error('Error creating club:', error);
+    }
+
+    if(id !== undefined)
+    {
+  
+    try
+    {
+      
+      $('.loading_message_creating').css("display","block");
+      
+    
+     
+      
+  
+      
+      $('#club_name').val('');
+      $('#errorCreateClub').css("display","none");
+      $('.loading_message_creating').css("display","none");
+      $('#successCreateClub').css("display","block");
+      $('#successCreateClub').text("Club created successfully with the name: " + clubName);
+      toast.success("Club Created Sucessfully");
+    } catch(e) {
+
+      $('.valid-feedback').css('display','none');
+        $('.invalid-feedback').css('display','block');
+        $('.loading_message_creating').css("display","none");
+        toast.warn(e);
+        $('.invalid-feedback').text(e);
+    }
+    
+    }
   };
+  
 
   return (
     <div id="page-top">
@@ -53,12 +96,12 @@ function CreateClub() {
       {/* Sidebar - Brand */}
       <a
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="index.html"
+        href="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-laugh-wink" />
         </div>
-        <div className="sidebar-brand-text mx-3">SpheronClub</div>
+        <div className="sidebar-brand-text mx-3">INTERNET COMPUTER CLUB</div>
       </a>
       {/* Divider */}
       <hr className="sidebar-divider my-0" />
@@ -86,7 +129,7 @@ function CreateClub() {
       <hr className="sidebar-divider d-none d-md-block" />
       {/* Sidebar Toggler (Sidebar) */}
       <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" id="sidebarToggle" />
+        <button  onClick={Tg} className="rounded-circle border-0" id="sidebarToggle" />
       </div>
     </ul>
     {/* End of Sidebar */}
@@ -100,6 +143,7 @@ function CreateClub() {
           <button
             id="sidebarToggleTop"
             className="btn btn-link d-md-none rounded-circle mr-3"
+            onClick={Tg}
           >
             <i className="fa fa-bars" />
           </button>
@@ -195,7 +239,7 @@ function CreateClub() {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Balance (CELO)
+                        Balance (CYCLE)
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800 view_balance_address">
                         -
@@ -269,6 +313,8 @@ function CreateClub() {
                         id="club_name"
                         className="form-control form-control-user"
                         placeholder="Give a name for this Investment Club"
+                        value={clubName}
+                        onChange={(e) => setClubName(e.target.value)}
                       />{" "}
                       <br />
                       Your password:{" "}
@@ -276,6 +322,8 @@ function CreateClub() {
                         type="password"
                         id="trx_password"
                         className="form-control form-control-user"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />{" "}
                       <br />
                       <br />

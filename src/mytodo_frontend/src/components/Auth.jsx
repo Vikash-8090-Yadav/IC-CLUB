@@ -2,6 +2,8 @@ import { AuthClient } from "@dfinity/auth-client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { canisterId, createActor } from "../../../declarations/mytodo_backend";
 
+
+
 const AuthContext = createContext();
 
 const defaultOptions = {
@@ -19,9 +21,8 @@ const defaultOptions = {
    */
   loginOptions: {
     identityProvider:
-      process.env.DFX_NETWORK === "ic"
-        ? "https://identity.ic0.app/#authorize"
-        : `http://127.0.0.1:4943/?canisterId=bd3sg-teaaa-aaaaa-qaaba-cai#authorize`,
+      
+        "https://identity.ic0.app/#authorize",
   },
 };
 
@@ -65,6 +66,8 @@ export const useAuthClient = (options = defaultOptions) => {
     const principal = identity.getPrincipal();
     setPrincipal(principal);
 
+    localStorage.setItem("principal",principal);
+
     setAuthClient(client);
 
     const actor = createActor(canisterId, {
@@ -91,6 +94,7 @@ export const useAuthClient = (options = defaultOptions) => {
     whoamiActor,
   };
 };
+
 
 /**
  * @type {React.FC}

@@ -3,17 +3,20 @@ import {mytodo_backend} from "../../declarations/mytodo_backend"
 
 async function changeClub(clubId) {
     localStorage.setItem("clubId", clubId);
-    window.location.href = "club.html";
+    window.location.href = "/club";
   }
+
+  
+
+
 
 
 async function GetClubs() {
     const id = await mytodo_backend.ClubId();
-    alert(id)
-    console.log(id)
+
+
     const info = await mytodo_backend.GetClub(0);
-    alert(info);
-    console.log("info",info)
+
     var walletAddress = localStorage.getItem("filWalletAddress");
    
     
@@ -21,7 +24,7 @@ async function GetClubs() {
       if(id>0) {
   
         var list = document.querySelector('.available_clubs');
-        console.log("list->",list);
+   
           var table = document.createElement('table');
           var thead = document.createElement('thead');
           var tbody = document.createElement('tbody');
@@ -45,33 +48,57 @@ async function GetClubs() {
   
           table.className = 'table';
           table.appendChild(thead);
+          
+          
+            
+            var member = await mytodo_backend.GetMemberCount();
+            var pr = await mytodo_backend.ProposalId();
   
           for (let i = 0; i < id; i++) {
             const info = await mytodo_backend.GetClub(i);
-            console.log(info[0])
+  
             // var title = info[i].title;
             if (id && 1) {
               var tbodyTr = document.createElement('tr');
               var contractTd = document.createElement('td');
-              contractTd.innerHTML = "<a class='btn btn-success' onclick='changeClub(" + i + ")''>" + i + "</a>";
-              tbodyTr.appendChild(contractTd);
+              var link = document.createElement("a");
+              link.className = "btn btn-success";
+              link.textContent = i;
+              
+              // Attach the event listener
+              link.addEventListener("click", function() {
+                changeClub(i);
+              });
+              contractTd.innerHTML = "<a class='btn btn-success'>" + i + "</a>";
+              tbodyTr.appendChild(link);
               var contractTickerTd = document.createElement('td');
-              // console.log("The id is",i);
-              // console.log("inside the fucntion",info[i].title)
+              
               const add = info[0].title;
               contractTickerTd.innerHTML = '<b>' + add+ '</b>';
               tbodyTr.appendChild(contractTickerTd);
               var balanceTd = document.createElement('td');
-              balanceTd.innerHTML = '<b>' + + '</b>';
+              
+              
+           
+              balanceTd.innerHTML = '<b>' + member+ '</b>';
               tbodyTr.appendChild(balanceTd);
               var balanceUSDTd = document.createElement('td');
-              balanceUSDTd.innerHTML = '<b>' +  + '</b>';
-              tbodyTr.appendChild(balanceUSDTd);
-              tbody.appendChild(tbodyTr);
+            
+  
+     
+
+            
+      
+            balanceUSDTd.innerHTML = '<b>' + pr + '</b>';
+            tbodyTr.appendChild(balanceUSDTd);
+            tbody.appendChild(tbodyTr);
+  
+              
+              
             }
           }
   
-          alert("MyDone")
+   
         table.appendChild(tbody);
   
           list.appendChild(table);

@@ -1,11 +1,26 @@
-
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
+import { mytodo_backend } from "../../../declarations/mytodo_backend/index";
 import GetClubs from '../getClubs';
+import Tg from "../components/toggle";
+
+import { useAuth } from "../components/Auth";
 
 function JoinClub() {
+
+  const { logout } = useAuth();
+
+  var balance =  mytodo_backend.GetBalance();
+  balance.then((result) => {
+    $('.club_balance').text(result);
+
+  })
+  .catch((error) => {
+    console.error('Promise rejected:', error);
+  });
+  
+ 
+  
 
     useEffect(() => {
         {
@@ -21,11 +36,11 @@ function JoinClub() {
       {/* Sidebar */}
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         {/* Sidebar - Brand */}
-        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/">
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink" />
           </div>
-          <div className="sidebar-brand-text mx-3">SpheronClub</div>
+          <div className="sidebar-brand-text mx-3">INTERNET COMPUTER Club</div>
         </a>
         {/* Divider */}
         <hr className="sidebar-divider my-0" />
@@ -49,24 +64,26 @@ function JoinClub() {
           <span>Create club</span>
         </Link>
       </li>
-        {/* Divider */}
-        <hr className="sidebar-divider d-none d-md-block" />
-        {/* Sidebar Toggler (Sidebar) */}
-        <div className="text-center d-none d-md-inline">
-          <button className="rounded-circle border-0" id="sidebarToggle" />
-        </div>
-      </ul>
-      {/* End of Sidebar */}
-      {/* Content Wrapper */}
-      <div id="content-wrapper" className="d-flex flex-column">
-        {/* Main Content */}
-        <div id="content">
-          {/* Topbar */}
-          <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-            {/* Sidebar Toggle (Topbar) */}
-            <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-              <i className="fa fa-bars" />
-            </button>
+      {/* Divider */}
+      <hr className="sidebar-divider d-none d-md-block" />
+      {/* Sidebar Toggler (Sidebar) */}
+      <div className="text-center d-none d-md-inline">
+        <button  onClick={Tg} className="rounded-circle border-0" id="sidebarToggle" />
+      </div>
+    </ul>
+    {/* End of Sidebar */}
+    {/* Content Wrapper */}
+    <div id="content-wrapper" className="d-flex flex-column">
+      {/* Main Content */}
+      <div id="content">
+        {/* Topbar */}
+        <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          {/* Sidebar Toggle (Topbar) */}
+          <button
+            id="sidebarToggleTop"
+            className="btn btn-link d-md-none rounded-circle mr-3"
+            onClick={Tg}
+          />
             {/* Topbar Navbar */}
             <ul className="navbar-nav ml-auto">
               {/* Nav Item - Search Dropdown (Visible Only XS) */}
@@ -121,8 +138,8 @@ function JoinClub() {
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2">
                         <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                          Balance (CELO)</div>
-                        <div className="h5 mb-0 font-weight-bold text-gray-800 view_balance_address">-</div>
+                          Balance (CYCLE)</div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800 view_balance_address">0</div>
                       </div>
                       <div className="col-auto">
                         <i className="fas fa-calendar fa-2x text-gray-300" />
@@ -222,7 +239,7 @@ function JoinClub() {
           <div className="modal-body">Select "Logout" below if you are ready to end your current session in this browser.</div>
           <div className="modal-footer">
             <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a className="btn btn-primary" id="btnLogout">Logout</a>
+            <a className="btn btn-primary"  onClick={logout} id="btnLogout">Logout</a>
           </div>
         </div>
       </div>
