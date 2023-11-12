@@ -1,8 +1,32 @@
-# IC-CLUB
+# Internet Computer Club (IC-CLUB)
 
 IC CLUB stands as a pioneering platform, revolutionizing the landscape of investment management. At its core, IC CLUB is designed to empower users by providing a decentralized, agile, and bureaucracy-free environment for managing investment clubs. The platform leverages innovative technologies to ensure transparency, security, and efficiency in investment processes.
 
 One of the standout features of IC CLUB is its commitment to decentralization. Through the use of blockchain technology, the platform ensures that investment club data is transparent, secure, and immutable. This decentralized approach eliminates the need for intermediaries, putting control directly into the hands of the users.'
+
+
+# What it does
+
+## Create Investment Clubs
+
+Users can create investment clubs by defining a name, and the club will be associated with the account of the user who creates it (owner).
+
+## Join or Leave Clubs
+
+Anyone with an ICP (Internet Computer Protocol) blockchain account can join available investment clubs or leave them with just a couple of clicks.
+
+## Contribute to the Club
+
+Any member of a club can contribute to the common fund (pool) by depositing ICP coins. These contributions can be used in proposals.
+
+## Create and Vote on Proposals
+
+Members who have contributed funds to the club pool can create proposals. Proposals include a description, amount (not exceeding the pool amount), and recipient for potential investments in businesses or individuals. All members can approve or reject proposals, with only one vote allowed per member on each proposal.
+
+## Run Proposals
+
+A proposal owner, if the approval is greater than rejection, can execute a proposal. This action will transfer the proposal amount to the specified recipient. The owner also has the option to close a proposal, either as a cancellation, due to a publication error, or to avoid sending funds if they decide not to proceed with it.
+
 
 
 
