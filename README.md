@@ -1,4 +1,4 @@
-# This project is made under Blockbash Hackathon
+# [Winner] This project is made under Blockbash Hackathon
 
 ![Screenshot from 2023-11-12 23-50-21](https://github.com/Vikash-8090-Yadav/IC-CLUB/assets/85225156/6b94e8bb-872c-47f5-b41b-0bee8c86fa32)
 
